@@ -33,9 +33,10 @@
     <hr>
     <div class="row">
         <!-- left column -->
+        <c:forEach items="${bookList}" var="book">
         <div class="col-md-3">
             <div class="text-center">
-                <%--                <img src="files/${book.getImgUrl()}" class="avatar img-circle img-thumbnail" alt="${book.getTitle()}">--%>
+                <img src="files/${book.getImgUrl()}" class="avatar img-circle img-thumbnail" alt="${book.getTitle()}">
             </div>
         </div>
 
@@ -44,7 +45,6 @@
             <div class="alert alert-info alert-dismissable">
             </div>
             <h3>Book info</h3>
-            <c:forEach items="${bookList}" var="book">
             <form action="/edit-book?id=${book.getId()}" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Title:</label>
@@ -73,8 +73,8 @@
                 <div class="form-group">
                     <label for="categoryId">Category:</label>
                     <select required class="form-control" id="categoryId" name="categoryId">
-                        <option selected disabled value="0">Select category:</option>
                         <c:forEach items="${categoryList}" var="category">
+                            <c:if test="${book.getCategoryId()==category.getId()}"><option selected value="${book.getCategoryId()}">${category.getName()} </option></c:if>
                             <option value="${category.getId()}">${category.getName()}</option>
                         </c:forEach>
                     </select>
